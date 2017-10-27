@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BudgetManagerV2.Models.Category>
+
+<div id="TreeView">
+    <h2>Category Treeview</h2>
+    @helper ShowTree(ICollection<BudgetManagerV2.Models.Category> cat)
+    {
+    <ul>
+        @foreach (var item in cat)
+        {
+            <li>
+                @Html.ActionLink(@item.Name, "Edit", new { id = item.Id })
+                @if (item.Category1.Any())
+                {
+                    @ShowTree(item.Category1)
+                }
+            </li>
+        }
+    </ul>
+}
+
+    <ul class="tree">
+        @{
+            foreach (var item in Model)
+            {
+                if (item.Cat_ID == null)
+                {
+                    <li>
+                        @Html.ActionLink(@item.Name, "Edit", new { id = item.Id })
+                        @ShowTree(item.Category1)
+                    </li>
+                }
+            }
+        }
+    </ul>
+    <p>
+        @Html.ActionLink("Create New Category", "Create")
+    </p>
+</div>
+@if (ViewBag.Message != null)
+{
+    <script>
+
+
+alert('@ViewBag.Message');
+
+    </script>
+
+}

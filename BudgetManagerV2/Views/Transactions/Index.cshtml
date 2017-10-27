@@ -1,0 +1,46 @@
+﻿@model IEnumerable<BudgetManagerV2.Models.Transaction>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Navn", "Index", new { sortOrder = ViewBag.NameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Værdi", "Index", new { sortOrder = ViewBag.ValueSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Dato", "Index", new { sortOrder = ViewBag.DateSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Kategori", "Index", new { sortOrder = ViewBag.CatSortParm })
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Text, "Details", new { id = item.Id })
+            </td>
+            <td>
+                @item.Value.ToString() DKK
+            </td>
+            <td>
+                @item.Date.ToString("dd-MM-yyyy")
+            </td>
+            <td>
+                @Html.ActionLink(item.Category.Name, "Edit", "Categories", new { id = item.Category.Id }, null)
+            </td>
+        </tr>
+    }
+
+</table>
