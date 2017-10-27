@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetManagerV2", "BudgetManagerV2\BudgetManagerV2.csproj", "{D08AAA0E-D2C7-41DF-ADE1-FF52444E46EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnittestBudgetManager", "UnittestBudgetManager\UnittestBudgetManager.csproj", "{5F12E549-C867-482F-BF90-4274F2EFC861}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{D08AAA0E-D2C7-41DF-ADE1-FF52444E46EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D08AAA0E-D2C7-41DF-ADE1-FF52444E46EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D08AAA0E-D2C7-41DF-ADE1-FF52444E46EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F12E549-C867-482F-BF90-4274F2EFC861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F12E549-C867-482F-BF90-4274F2EFC861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F12E549-C867-482F-BF90-4274F2EFC861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F12E549-C867-482F-BF90-4274F2EFC861}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
