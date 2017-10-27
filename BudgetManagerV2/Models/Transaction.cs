@@ -16,18 +16,21 @@ namespace BudgetManagerV2.Models
 
     public partial class Transaction
     {
-
-        [Required]
         public int Id { get; set; }
+
         [Required(ErrorMessage = "Please fill in a value")]
         public Nullable<double> Value { get; set; }
+
         [Required(ErrorMessage = "Please fill in a title")]
         public string Text { get; set; }
+
         [Required(ErrorMessage = "Please fill in a date")]
         public DateTime Date { get; set; }
-        public Nullable<int> FK_Category { get; set; }
+
         [DisplayName("Pick a category")]
         [Required(ErrorMessage = "Please fill in a category")]
+        public Nullable<int> FK_Category { get; set; }
+
         public virtual Category Category { get; set; }
     }
 }
