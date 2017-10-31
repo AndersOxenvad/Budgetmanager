@@ -26,5 +26,11 @@ namespace BudgetManagerV2.Controllers
 
             return View();
         }
+        public ActionResult Documentation()
+        {
+            ViewBag.Message = "Your documentation page.";
+
+            return View();
+        }
     }
 }

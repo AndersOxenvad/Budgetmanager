@@ -11,7 +11,8 @@ namespace BudgetManagerV2.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Transaction
     {
         public int Id { get; set; }

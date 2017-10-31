@@ -35,7 +35,7 @@
                 @item.Value.ToString() DKK
             </td>
             <td>
-                @item.Date.ToString("dd-MM-yyyy")
+                @item.Date.Value.ToString("dd-MM-yyyy")
             </td>
             <td>
                 @Html.ActionLink(item.Category.Name, "Edit", "Categories", new { id = item.Category.Id }, null)

@@ -5,10 +5,9 @@ using BudgetManagerV2.Models;
 using Newtonsoft.Json;
 using System.Data;
 using System.Data.Entity;
-using System.Net;
 using System;
 using System.Net.Http;
-using Microsoft.Azure.KeyVault;
+
 
 namespace BudgetManagerV2.Controllers
 {
@@ -21,6 +20,17 @@ namespace BudgetManagerV2.Controllers
         Transaction trans = new Transaction();
         Category cat = new Category();
 
+     
+        [HttpGet]
+        public IHttpActionResult Documentation()
+        {
+            //Replace with azure website link
+            string url = "http://budgetmanagerxena.azurewebsites.net/Home/Documentation";
+
+            Uri uri = new Uri(url);
+
+            return Redirect(uri);
+        }
         public IHttpActionResult GetTransaction(int id)
         {
             db.Configuration.ProxyCreationEnabled = false;
