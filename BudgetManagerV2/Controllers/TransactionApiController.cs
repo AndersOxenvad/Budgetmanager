@@ -7,13 +7,16 @@ using System.Data;
 using System.Data.Entity;
 using System.Net;
 using System;
+using System.Net.Http;
+using Microsoft.Azure.KeyVault;
 
 namespace BudgetManagerV2.Controllers
 {
 
     public class TransactionController : ApiController
     {
-
+        private static readonly HttpClient client = new HttpClient();
+        private string ApiKey = "DYtEt0TuEE-N7PaRnuYtk-7IADgw1rIx";
         private BudgetManagerEntities db = new BudgetManagerEntities();
         Transaction trans = new Transaction();
         Category cat = new Category();
@@ -39,11 +42,14 @@ namespace BudgetManagerV2.Controllers
                 {
                     return Redirect("~/Views/Home/index.cshtml");
                 }
+                Log("Got general information on transaction with id: " + id, ApiKey);
                 return Ok(JsonConvert.SerializeObject(transaction));
             }
 
             return BadRequest("No transactions with that id");
         }
+
+
         public IHttpActionResult GetTransactionList(string start, string end)
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -55,8 +61,8 @@ namespace BudgetManagerV2.Controllers
 
             DateTime? startTime = Convert.ToDateTime(start);
             DateTime? endTime = Convert.ToDateTime(end);
-         
-            
+
+
 
             foreach (var item in db.Transaction.Include(t => t.Category).Where(x => x.Date >= startTime && x.Date <= endTime))
             {
@@ -73,14 +79,35 @@ namespace BudgetManagerV2.Controllers
                     return Redirect("~/Views/Home/index.cshtml");
                 }
                 transactionList.Add(transaction);
-                
+
             }
             if (transactionList == null)
             {
                 return BadRequest("Request error");
             }
+            Log("Got a list of transactions in the given time interval: " + start + " to " + end, ApiKey);
             return Ok(JsonConvert.SerializeObject(transactionList));
 
+        }
+        public static void Log(string Information, string apiKey)
+        {
+            var client = new HttpClient();
+
+            var pairs = new List<KeyValuePair<string, string>>
+    {
+        new KeyValuePair<string, string>("information", Information),
+        new KeyValuePair<string, string>("api_key", apiKey)
+    };
+
+            var content = new FormUrlEncodedContent(pairs);
+
+            var response = client.PostAsync("http://mailmicroservice.herokuapp.com/api/log?", content).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+
+
+            }
         }
     }
 }

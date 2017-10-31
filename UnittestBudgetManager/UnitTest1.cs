@@ -56,6 +56,27 @@ namespace UnittestBudgetManager
             Assert.AreEqual(transList.Count, 2);
 
         }
+        [TestMethod]
+        public void Log()
+        {
+            var client = new HttpClient();
+            string Information = "Unittest information";
+            string apiKey = "unittest apikey";
+            var pairs = new List<KeyValuePair<string, string>>
+    {
+        new KeyValuePair<string, string>("information", Information),
+        new KeyValuePair<string, string>("api_key", apiKey)
+    };
+            string compare = "";
+            var content = new FormUrlEncodedContent(pairs);
+            foreach (var item in pairs)
+            {
+                compare += item.Key + "=" + item.Value + "&";
+            }
+           int index = compare.LastIndexOf("&");
+           string actuall = compare.Remove(index, 1);
+            Assert.AreEqual("information=" + Information + "&" + "api_key=" + apiKey, actuall);
+        }
         public  List<Transaction> GetTestTransaction()
         {
             var testProducts = new List<Transaction>();
