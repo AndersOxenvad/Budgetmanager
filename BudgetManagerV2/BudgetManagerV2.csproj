@@ -311,6 +311,8 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Home\Documentation.cshtml" />
+    <Content Include="Views\Transactions\Mail.cshtml" />
+    <Content Include="Views\Transactions\SendMail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

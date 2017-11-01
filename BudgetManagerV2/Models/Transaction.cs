@@ -18,6 +18,7 @@ namespace BudgetManagerV2.Models
         public int Id { get; set; }
         public Nullable<double> Value { get; set; }
         public string Text { get; set; }
+        public string Email { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> FK_Category { get; set; }
     

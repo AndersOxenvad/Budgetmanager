@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BudgetManagerV2.Models;
+using System.Net.Http;
 
 namespace BudgetManagerV2.Controllers
 {
@@ -159,6 +160,39 @@ namespace BudgetManagerV2.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpGet]
+        public ActionResult Mail()
+        {
+            
+            
+            return View(new Transaction());
+        }
+        [HttpPost]
+        public ActionResult Mail(Transaction trans)
+        {
+
+            string mail = trans.Email;
+            
+            if (mail != null)
+            {
+                string template = "Title: [[Text]]\nValue: [[Value]]\nDate: [[Date]]\nCategory: [[Category]]";
+
+                string apilink = "http://budgetmanagerxena.azurewebsites.net/api/transaction/Gettransaction/" + trans.Id;
+
+                var client = new HttpClient();
+
+                string content = string.Format("template={0}&api_link={1}&email={2}", template, apilink, mail);
+            var response = client.GetAsync("http://mailmicroservice.herokuapp.com/api/sendEmail?" + content).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                   return RedirectToAction("index");
+                    
+            }
+
+            }
+            return RedirectToAction("index");
         }
     }
 }
