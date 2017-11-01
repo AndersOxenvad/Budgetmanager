@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Documentation";
+}
+
+<h2>Documentation</h2>
+
+@{
+    ViewBag.Title = "Contact";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<div class="container">
+    <h2>Api documentation</h2>
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#GeneralInfo">General Information from Transactions</a>
+                </h4>
+            </div>
+            <div id="GeneralInfo" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <!-- <strong> -->
+                    <ul>
+                        <li>Endpoint: /api/transaction/Gettransaction/id</li>
+                        <li>Method: GET
+                        <li>Paramters required: <strong>ID</strong></li>
+                        <li>ID: The id of the requested transaction</li>
+                        <li>
+                            <span class="bold">Example: /api/transaction/gettransaction/1</span><br>
+                            <div class="example">
+                                <p>Transaction on ID 1 <pre>Returns the general information about the transaction in an Json object</pre></p>
+                                <p>
+                                    Json object:<pre><code>{"ID":1,"Text":"Test trans","Value":5000.0,"Date":"2017-10-28T00:00:00","Category":"test2"}</code></pre>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#TransList">List of transactions in a given time</a>
+                </h4>
+            </div>
+            <div id="TransList" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <!-- <strong> -->
+                    <ul>
+                        <li>Endpoint: /api/transaction/Gettransactionlist/?start=""&end=""</li>
+                        <li>Method: GET
+                        <li>Paramters required: <strong>start date, end date</strong></li>
+                        <li>start date: The time interval where your requested list will start</li>
+                        <li>end date: The time interval where your requested list will end</li>
+                        <li>
+                            <span class="bold">Example: /api/transaction/gettransactionlist/?start=2017-01-01&end=2017-12-25</span><br>
+                            <div class="example">
+                                <p>Get transactions between 2017-01-01 and 2017-12-25 <pre>Returns a list of transaction in the given time interval in json format</pre></p>
+                                <p>
+                                    Json object:<pre><code>[{"ID":1,"Text":"Test trans","Value":5000.0,"Date":"2017-10-28T00:00:00","Category":"test2"},{"ID":2,"Text":"ListTransTest","Value":10000.0,"Date":"2017-10-20T00:00:00","Category":"test2"},{"ID":3,"Text":"ListTransTest2","Value":5.0,"Date":"2017-10-15T00:00:00","Category":"test2"}]</code></pre>
+                                </p>
+                                <pre class="note">Note: The start and end time format must be YYYY-mm-DD</pre>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
