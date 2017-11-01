@@ -60,7 +60,6 @@ namespace BudgetManagerV2.Controllers
                 Log("Got general information on transaction with id: " + id, ApiKey);
 
                 string transactionJson = new JavaScriptSerializer().Serialize(transaction);
-                //return Ok(new JavaScriptSerializer().Deserialize<object>(transactionJson));
                 return Json(transactionJson);
             }
 
@@ -118,8 +117,8 @@ namespace BudgetManagerV2.Controllers
     };
 
             var content = new FormUrlEncodedContent(pairs);
-
-            var response = client.PostAsync("http://mailmicroservice.herokuapp.com/api/log?", content).Result;
+           
+            var response = client.PostAsync("https://loggingmicroservices.herokuapp.com/api/log?", content).Result;
 
             if (response.IsSuccessStatusCode)
             {
