@@ -7,7 +7,10 @@ using System.Data;
 using System.Data.Entity;
 using System;
 using System.Net.Http;
-
+using System.Web.Script.Serialization;
+using Newtonsoft.Json.Linq;
+using System.Web.Http.Results;
+using System.Web.Mvc;
 
 namespace BudgetManagerV2.Controllers
 {
@@ -21,7 +24,7 @@ namespace BudgetManagerV2.Controllers
         Category cat = new Category();
 
      
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         public IHttpActionResult Documentation()
         {
             //Replace with azure website link
@@ -48,12 +51,16 @@ namespace BudgetManagerV2.Controllers
                     Date = item.Date,
                     Category = item.Category.Name
                 };
+
                 if (transaction == null)
                 {
-                    return Redirect("~/Views/Home/index.cshtml");
+                    //return Redirect("~/Views/Home/index.cshtml");
                 }
+
                 Log("Got general information on transaction with id: " + id, ApiKey);
-                return Ok(JsonConvert.SerializeObject(transaction));
+
+                string transactionJson = new JavaScriptSerializer().Serialize(transaction);
+                return Json(transactionJson);
             }
 
             return BadRequest("No transactions with that id");
@@ -110,8 +117,8 @@ namespace BudgetManagerV2.Controllers
     };
 
             var content = new FormUrlEncodedContent(pairs);
-
-            var response = client.PostAsync("http://mailmicroservice.herokuapp.com/api/log?", content).Result;
+           
+            var response = client.PostAsync("https://loggingmicroservices.herokuapp.com/api/log?", content).Result;
 
             if (response.IsSuccessStatusCode)
             {
