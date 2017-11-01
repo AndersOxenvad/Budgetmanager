@@ -7,10 +7,7 @@ using System.Data;
 using System.Data.Entity;
 using System;
 using System.Net.Http;
-using System.Web.Script.Serialization;
-using Newtonsoft.Json.Linq;
-using System.Web.Http.Results;
-using System.Web.Mvc;
+
 
 namespace BudgetManagerV2.Controllers
 {
@@ -24,7 +21,7 @@ namespace BudgetManagerV2.Controllers
         Category cat = new Category();
 
      
-        [System.Web.Http.HttpGet]
+        [HttpGet]
         public IHttpActionResult Documentation()
         {
             //Replace with azure website link
@@ -54,13 +51,13 @@ namespace BudgetManagerV2.Controllers
 
                 if (transaction == null)
                 {
-                    //return Redirect("~/Views/Home/index.cshtml");
+                    return Redirect("~/Views/Home/index.cshtml");
                 }
 
                 Log("Got general information on transaction with id: " + id, ApiKey);
 
-                string transactionJson = new JavaScriptSerializer().Serialize(transaction);
-                return Json(transactionJson);
+
+                return Ok(JsonConvert.SerializeObject(transaction));
             }
 
             return BadRequest("No transactions with that id");
