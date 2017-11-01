@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using BudgetManagerV2.Models;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace BudgetManagerV2.Controllers
 {
@@ -25,7 +27,7 @@ namespace BudgetManagerV2.Controllers
 
             var transaction = db.Transaction.Include(t => t.Category);
 
-            
+
             switch (sortOrder)
             {
                 case "name_desc":
@@ -49,7 +51,7 @@ namespace BudgetManagerV2.Controllers
                 default:
                     transaction = transaction.OrderBy(t => t.Text);
                     break;
-                    
+
             }
             return View(transaction.ToList());
         }
@@ -69,6 +71,20 @@ namespace BudgetManagerV2.Controllers
             return View(transaction);
         }
 
+        [HttpGet]
+        public static string GetImage(Transaction trans) {
+            return GetImageHelper(trans).Result;
+        }
+        public static async Task<string> GetImageHelper(Transaction trans)
+        {
+            string imageURL;
+            var client = new HttpClient();
+
+            var response = client.GetAsync("http://image-search9000.herokuapp.com/Description?Beskrivelse=" + trans.Text).Result;
+            string result = await response.Content.ReadAsStringAsync();
+            imageURL = result;
+            return imageURL;
+        }
         // GET: Transactions/Create
         public ActionResult Create()
         {
@@ -81,11 +97,16 @@ namespace BudgetManagerV2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Value,Text,Date,FK_Category")] Transaction transaction)
+        public ActionResult Create([Bind(Include = "Id,Value,Text,Date,FK_Category,ImageURL")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
+                
+                 transaction.ImageURL = GetImage(transaction);
+                
+                
                 db.Transaction.Add(transaction);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -164,8 +185,8 @@ namespace BudgetManagerV2.Controllers
         [HttpGet]
         public ActionResult Mail()
         {
-            
-            
+
+
             return View(new Transaction());
         }
         [HttpPost]
@@ -173,7 +194,7 @@ namespace BudgetManagerV2.Controllers
         {
 
             string mail = trans.Email;
-            
+
             if (mail != null)
             {
                 string template = "Title: [[Text]]\nValue: [[Value]]\nDate: [[Date]]\nCategory: [[Category]]";
@@ -183,13 +204,13 @@ namespace BudgetManagerV2.Controllers
                 var client = new HttpClient();
 
                 string content = string.Format("template={0}&api_link={1}&email={2}", template, apilink, mail);
-            var response = client.GetAsync("http://mailmicroservice.herokuapp.com/api/sendEmail?" + content).Result;
+                var response = client.GetAsync("http://mailmicroservice.herokuapp.com/api/sendEmail?" + content).Result;
 
-            if (response.IsSuccessStatusCode)
-            {
-                   return RedirectToAction("index");
-                    
-            }
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("index");
+
+                }
 
             }
             return RedirectToAction("index");

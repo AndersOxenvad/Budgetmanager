@@ -22,6 +22,7 @@
           <Property Name="Text" Type="nvarchar(max)" />
           <Property Name="Date" Type="date" />
           <Property Name="FK_Category" Type="int" />
+          <Property Name="ImageURL" Type="nvarchar(max)" />
         </EntityType>
         <Association Name="FK_Category_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -36,9 +37,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Transaction_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
           <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
@@ -86,6 +85,7 @@
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="FK_Category" Type="Int32" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Transaction_Category" FromRole="Transaction" ToRole="Category" />
+          <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Category_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
@@ -141,6 +141,7 @@
           <EntitySetMapping Name="Transaction">
             <EntityTypeMapping TypeName="BudgetManagerModel.Transaction">
               <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Text" ColumnName="Text" />

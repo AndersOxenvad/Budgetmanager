@@ -11,8 +11,7 @@ namespace BudgetManagerV2.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Transaction
     {
         public int Id { get; set; }
@@ -21,6 +20,7 @@ namespace BudgetManagerV2.Models
         public string Email { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> FK_Category { get; set; }
+        public string ImageURL { get; set; }
     
         public virtual Category Category { get; set; }
     }
