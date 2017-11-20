@@ -7,6 +7,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Http;
 using Newtonsoft.Json;
+using BudgetManagerV2.Models;
 
 namespace BudgetManagerV2
 {
@@ -24,6 +25,8 @@ namespace BudgetManagerV2
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Recieve rev = new Recieve();
             // ...
         }
     }

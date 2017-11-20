@@ -20,7 +20,7 @@ namespace BudgetManagerV2.Controllers
         Transaction trans = new Transaction();
         Category cat = new Category();
 
-     
+
         [HttpGet]
         public IHttpActionResult Documentation()
         {
@@ -114,7 +114,7 @@ namespace BudgetManagerV2.Controllers
     };
 
             var content = new FormUrlEncodedContent(pairs);
-           
+
             var response = client.PostAsync("https://loggingmicroservices.herokuapp.com/api/log?", content).Result;
 
             if (response.IsSuccessStatusCode)
@@ -123,5 +123,7 @@ namespace BudgetManagerV2.Controllers
 
             }
         }
+       
+       
     }
 }
